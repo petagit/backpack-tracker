@@ -1,0 +1,13 @@
+{
+  "name": "backpack-tracker",
+  "version": "1.0.0",
+  "description": "Expense tracker for backpack project",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["expense", "tracker"],
+  "author": "",
+  "license": "MIT"
+}
