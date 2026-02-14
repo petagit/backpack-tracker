@@ -12,82 +12,60 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
             padding: 20px;
+            color: #000;
         }
         
         .container {
             max-width: 1600px;
             margin: 0 auto;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            border: 1px solid #d0d0d0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         header {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
+            background: white;
+            border-bottom: 2px solid #000;
+            padding: 15px 20px;
         }
         
         h1 {
-            font-size: 2em;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #000;
             margin-bottom: 10px;
         }
         
         .tabs {
             display: flex;
-            gap: 5px;
-            margin-top: 20px;
-            justify-content: center;
+            gap: 0;
+            margin-top: 10px;
+            border-bottom: 1px solid #d0d0d0;
         }
         
         .tab {
-            padding: 10px 25px;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
+            padding: 8px 20px;
+            background: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-bottom: none;
+            color: #000;
             cursor: pointer;
-            border-radius: 6px 6px 0 0;
-            font-size: 1em;
-            transition: all 0.2s;
+            font-size: 0.9em;
+            transition: background 0.1s;
         }
         
         .tab:hover {
-            background: rgba(255,255,255,0.2);
+            background: #e0e0e0;
         }
         
         .tab.active {
             background: white;
-            color: #2d3748;
             font-weight: 600;
-        }
-        
-        .summary {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .summary-item {
-            text-align: center;
-        }
-        
-        .summary-label {
-            font-size: 0.9em;
-            opacity: 0.8;
-            margin-bottom: 5px;
-        }
-        
-        .summary-value {
-            font-size: 1.8em;
-            font-weight: bold;
+            border-bottom: 2px solid white;
+            margin-bottom: -1px;
         }
         
         .tab-content {
@@ -99,125 +77,140 @@
         }
         
         .controls {
-            padding: 20px 30px;
-            background: #f7fafc;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            background: #fafafa;
+            border-bottom: 1px solid #d0d0d0;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             align-items: center;
         }
         
-        .filter-group {
-            display: flex;
-            gap: 5px;
-            align-items: center;
-        }
-        
-        .filter-label {
-            font-size: 0.9em;
-            color: #4a5568;
-            font-weight: 500;
-        }
-        
         .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
+            padding: 6px 14px;
+            border: 1px solid #000;
+            background: white;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: 500;
-            transition: all 0.2s;
+            transition: all 0.1s;
         }
         
-        .btn-primary {
-            background: #667eea;
+        .btn:hover {
+            background: #000;
             color: white;
         }
         
-        .btn-primary:hover {
-            background: #5568d3;
-        }
-        
-        .btn-success {
-            background: #48bb78;
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: #38a169;
+        .btn:active {
+            background: #333;
         }
         
         .btn-filter {
-            padding: 8px 16px;
-            background: #e2e8f0;
-            color: #2d3748;
+            padding: 6px 14px;
+            background: white;
+            border: 1px solid #d0d0d0;
+            color: #000;
             font-size: 0.85em;
         }
         
         .btn-filter:hover {
-            background: #cbd5e0;
+            background: #f0f0f0;
+            border-color: #000;
         }
         
         .btn-filter.active {
-            background: #667eea;
+            background: #000;
             color: white;
+            border-color: #000;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            margin-left: auto;
+        }
+        
+        .filter-label {
+            font-size: 0.85em;
+            color: #000;
+            font-weight: 500;
+            margin-right: 5px;
         }
         
         .table-container {
-            padding: 30px;
+            padding: 0;
             overflow-x: auto;
+            background: white;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
         
         th {
-            background: #f7fafc;
-            color: #2d3748;
+            background: #f0f0f0;
+            color: #000;
             font-weight: 600;
             text-align: left;
-            padding: 12px;
+            padding: 10px 12px;
+            border: 1px solid #d0d0d0;
             position: sticky;
             top: 0;
-            border-bottom: 2px solid #cbd5e0;
         }
         
         td {
+            padding: 8px 12px;
+            border: 1px solid #d0d0d0;
+            background: white;
+        }
+        
+        tr:hover td {
+            background: #f9f9f9;
+        }
+        
+        tr.payment td {
+            background: #e8f5e9;
+        }
+        
+        tr.payment:hover td {
+            background: #d4edda;
+        }
+        
+        tr.shipping td {
+            background: #fff3e0;
+        }
+        
+        tr.shipping:hover td {
+            background: #ffe0b2;
+        }
+        
+        .totals-row {
+            background: #000 !important;
+            color: white !important;
+            font-weight: 700;
+        }
+        
+        .totals-row td {
+            background: #000 !important;
+            color: white !important;
+            border-color: #000 !important;
             padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        tr:hover {
-            background: #f7fafc;
-        }
-        
-        tr.payment {
-            background: #f0fff4;
-        }
-        
-        tr.payment:hover {
-            background: #e6ffed;
-        }
-        
-        tr.shipping {
-            background: #fffaf0;
-        }
-        
-        tr.shipping:hover {
-            background: #fef5e7;
         }
         
         input, textarea, select {
-            width: 100%;
             padding: 6px;
-            border: 1px solid #cbd5e0;
-            border-radius: 4px;
+            border: 1px solid #d0d0d0;
             font-family: inherit;
             font-size: inherit;
+            background: white;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #000;
         }
         
         textarea {
@@ -225,93 +218,55 @@
             min-height: 60px;
         }
         
-        .edit-btn, .save-btn, .cancel-btn, .delete-btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
+        .action-btn {
+            padding: 4px 10px;
+            border: 1px solid #000;
+            background: white;
             cursor: pointer;
-            font-size: 0.85em;
-            font-weight: 500;
-            transition: all 0.2s;
-            margin-right: 5px;
+            font-size: 0.8em;
+            margin-right: 4px;
         }
         
-        .edit-btn {
-            background: #667eea;
+        .action-btn:hover {
+            background: #000;
             color: white;
         }
         
-        .edit-btn:hover {
-            background: #5568d3;
+        .action-btn.delete {
+            border-color: #d32f2f;
+            color: #d32f2f;
         }
         
-        .save-btn {
-            background: #48bb78;
+        .action-btn.delete:hover {
+            background: #d32f2f;
             color: white;
-        }
-        
-        .save-btn:hover {
-            background: #38a169;
-        }
-        
-        .cancel-btn {
-            background: #cbd5e0;
-            color: #2d3748;
-        }
-        
-        .cancel-btn:hover {
-            background: #a0aec0;
-        }
-        
-        .delete-btn {
-            background: #f56565;
-            color: white;
-        }
-        
-        .delete-btn:hover {
-            background: #e53e3e;
         }
         
         .success {
-            background: #c6f6d5;
-            color: #22543d;
-            padding: 15px;
-            margin: 20px;
-            border-radius: 8px;
-            text-align: center;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            margin: 15px 20px;
+            border: 1px solid #81c784;
         }
         
         .amount-positive {
-            color: #c53030;
+            color: #d32f2f;
             font-weight: 500;
         }
         
         .amount-negative {
-            color: #38a169;
+            color: #388e3c;
             font-weight: 500;
         }
         
         .category-badge {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8em;
+            padding: 2px 8px;
+            border: 1px solid #000;
+            font-size: 0.75em;
             font-weight: 500;
-        }
-        
-        .category-materials {
-            background: #e6ffed;
-            color: #22543d;
-        }
-        
-        .category-shipping {
-            background: #fef5e7;
-            color: #744210;
-        }
-        
-        .category-labor {
-            background: #e0e7ff;
-            color: #3730a3;
+            background: white;
         }
         
         .modal {
@@ -321,22 +276,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.4);
             z-index: 1000;
         }
         
         .modal-content {
             background: white;
             max-width: 600px;
-            margin: 100px auto;
-            padding: 30px;
-            border-radius: 12px;
-            max-height: 80vh;
+            margin: 80px auto;
+            padding: 25px;
+            border: 2px solid #000;
+            max-height: 85vh;
             overflow-y: auto;
         }
         
         .modal-content h2 {
             margin-bottom: 20px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
         }
         
         .form-group {
@@ -346,49 +303,51 @@
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.9em;
         }
         
         /* Gallery Styles */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: white;
         }
         
         .gallery-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            border: 1px solid #d0d0d0;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
+            transition: box-shadow 0.2s;
         }
         
         .gallery-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
         .gallery-item img {
             width: 100%;
-            height: 400px;
+            height: 350px;
             object-fit: cover;
+            border-bottom: 1px solid #d0d0d0;
         }
         
         .gallery-item-info {
-            padding: 15px;
-            background: #f7fafc;
+            padding: 12px;
+            background: #fafafa;
         }
         
         .gallery-item-title {
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            font-size: 0.9em;
         }
         
         .gallery-item-date {
-            font-size: 0.85em;
-            color: #718096;
+            font-size: 0.8em;
+            color: #666;
         }
         
         .lightbox {
@@ -398,7 +357,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -422,47 +381,34 @@
             font-size: 40px;
             cursor: pointer;
             z-index: 2001;
+            font-weight: 300;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🎒 Backpack Project Expense Tracker</h1>
+            <h1>Backpack Project Expense Tracker</h1>
             <div class="tabs">
                 <button class="tab active" onclick="switchTab('expenses')">Expenses</button>
                 <button class="tab" onclick="switchTab('gallery')">Gallery</button>
-            </div>
-            <div class="summary" id="summary">
-                <div class="summary-item">
-                    <div class="summary-label">Total Expenses (RMB)</div>
-                    <div class="summary-value" id="totalRMB">¥0</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-label">Materials</div>
-                    <div class="summary-value" id="materialsCost">¥0</div>
-                </div>
-                <div class="summary-item">
-                    <div class="summary-label">Shipping</div>
-                    <div class="summary-value" id="shippingCost">¥0</div>
-                </div>
             </div>
         </header>
         
         <!-- Expenses Tab -->
         <div id="expenses-tab" class="tab-content active">
             <div class="controls">
-                <button class="btn btn-primary" onclick="showAddModal()">+ Add Expense</button>
-                <button class="btn btn-success" onclick="exportData()">📥 Export Data</button>
+                <button class="btn" onclick="showAddModal()">+ Add Expense</button>
+                <button class="btn" onclick="exportData()">Export</button>
                 <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
-                <button class="btn btn-primary" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+                <button class="btn" onclick="document.getElementById('importFile').click()">Import</button>
                 
-                <div class="filter-group" style="margin-left: auto;">
+                <div class="filter-group">
                     <span class="filter-label">Filter:</span>
-                    <button class="btn btn-filter active" data-filter="all" onclick="filterCategory('all')">All</button>
-                    <button class="btn btn-filter" data-filter="Materials" onclick="filterCategory('Materials')">Materials</button>
-                    <button class="btn btn-filter" data-filter="Shipping" onclick="filterCategory('Shipping')">Shipping</button>
-                    <button class="btn btn-filter" data-filter="Labor" onclick="filterCategory('Labor')">Labor</button>
+                    <button class="btn-filter active" data-filter="all" onclick="filterCategory('all')">All</button>
+                    <button class="btn-filter" data-filter="Materials" onclick="filterCategory('Materials')">Materials</button>
+                    <button class="btn-filter" data-filter="Shipping" onclick="filterCategory('Shipping')">Shipping</button>
+                    <button class="btn-filter" data-filter="Labor" onclick="filterCategory('Labor')">Labor</button>
                 </div>
             </div>
             
@@ -484,6 +430,8 @@
                     </thead>
                     <tbody id="expenseBody">
                     </tbody>
+                    <tfoot id="totalsFooter">
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -491,7 +439,6 @@
         <!-- Gallery Tab -->
         <div id="gallery-tab" class="tab-content">
             <div class="gallery-grid" id="galleryGrid">
-                <!-- Gallery items will be inserted here -->
             </div>
         </div>
     </div>
@@ -539,8 +486,8 @@
                     <input type="text" id="statusInput" placeholder="e.g., 交易成功">
                 </div>
                 <div style="margin-top: 20px; display: flex; gap: 10px;">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="button" class="btn cancel-btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn">Save</button>
+                    <button type="button" class="btn" onclick="closeModal()">Cancel</button>
                 </div>
             </form>
         </div>
@@ -557,7 +504,6 @@
         let editingIndex = null;
         let currentFilter = 'all';
         
-        // Gallery images
         const galleryImages = [
             { src: 'gallery/shipping-01.jpg', title: 'Shipping Records 1', date: 'January 2026' },
             { src: 'gallery/shipping-02.jpg', title: 'Shipping Records 2', date: 'January 2026' },
@@ -566,7 +512,6 @@
             { src: 'gallery/shipping-05.jpg', title: 'Shipping Records 5', date: 'January-February 2026' }
         ];
         
-        // Initial data
         const initialData = [
             {"Item":"牛津布","Amount(RMB)":"$43.00","Amount(USD)":"","Date":"December 24, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
             {"Item":"mockup版费","Amount(RMB)":"$1,200.00","Amount(USD)":"","Date":"December 27, 2025","Notes":"","Payment Method":"Wechat","Receipt":"","Status":"空","Category":"Labor"},
@@ -631,7 +576,6 @@
                 saveToLocalStorage();
             }
             renderTable();
-            updateSummary();
         }
         
         function saveToLocalStorage() {
@@ -648,39 +592,23 @@
             if (!amount && amount !== 0) return '';
             const symbol = currency === 'USD' ? '$' : '¥';
             const formatted = Math.abs(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            return amount < 0 ? `${symbol}-${formatted}` : `${symbol}${formatted}`;
-        }
-        
-        function getCategoryClass(category) {
-            if (!category) return '';
-            return 'category-' + category.toLowerCase();
-        }
-        
-        function updateSummary() {
-            let totalRMB = 0;
-            let materialsCost = 0;
-            let shippingCost = 0;
-            
-            expenses.forEach(exp => {
-                const rmb = parseAmount(exp['Amount(RMB)']);
-                totalRMB += rmb;
-                
-                if (exp.Category === 'Materials') materialsCost += rmb;
-                if (exp.Category === 'Shipping') shippingCost += rmb;
-            });
-            
-            document.getElementById('totalRMB').textContent = formatAmount(totalRMB, 'RMB');
-            document.getElementById('materialsCost').textContent = formatAmount(materialsCost, 'RMB');
-            document.getElementById('shippingCost').textContent = formatAmount(shippingCost, 'RMB');
+            return amount < 0 ? `-${symbol}${formatted}` : `${symbol}${formatted}`;
         }
         
         function renderTable() {
             const tbody = document.getElementById('expenseBody');
+            const tfoot = document.getElementById('totalsFooter');
             tbody.innerHTML = '';
             
             const filteredExpenses = currentFilter === 'all' 
                 ? expenses 
                 : expenses.filter(exp => exp.Category === currentFilter);
+            
+            let totalRMB = 0;
+            let totalUSD = 0;
+            let materialsCost = 0;
+            let shippingCost = 0;
+            let laborCost = 0;
             
             filteredExpenses.forEach((exp, index) => {
                 if (!exp.Item && !exp['Amount(RMB)'] && !exp['Amount(USD)']) return;
@@ -695,11 +623,18 @@
                 
                 const rmbAmount = parseAmount(exp['Amount(RMB)']);
                 const usdAmount = parseAmount(exp['Amount(USD)']);
+                totalRMB += rmbAmount;
+                totalUSD += usdAmount;
+                
+                if (exp.Category === 'Materials') materialsCost += rmbAmount;
+                if (exp.Category === 'Shipping') shippingCost += rmbAmount;
+                if (exp.Category === 'Labor') laborCost += rmbAmount;
+                
                 const rmbClass = rmbAmount < 0 ? 'amount-negative' : 'amount-positive';
                 const usdClass = usdAmount < 0 ? 'amount-negative' : 'amount-positive';
                 
                 const categoryBadge = exp.Category 
-                    ? `<span class="category-badge ${getCategoryClass(exp.Category)}">${exp.Category}</span>`
+                    ? `<span class="category-badge">${exp.Category}</span>`
                     : '';
                 
                 row.innerHTML = `
@@ -712,13 +647,40 @@
                     <td>${exp['Payment Method'] || ''}</td>
                     <td>${exp.Status || ''}</td>
                     <td>
-                        <button class="edit-btn" onclick="editExpense(${actualIndex})">Edit</button>
-                        <button class="delete-btn" onclick="deleteExpense(${actualIndex})">Delete</button>
+                        <button class="action-btn" onclick="editExpense(${actualIndex})">Edit</button>
+                        <button class="action-btn delete" onclick="deleteExpense(${actualIndex})">Delete</button>
                     </td>
                 `;
                 
                 tbody.appendChild(row);
             });
+            
+            // Add totals row
+            tfoot.innerHTML = `
+                <tr class="totals-row">
+                    <td colspan="2"><strong>TOTAL</strong></td>
+                    <td><strong>${formatAmount(totalRMB)}</strong></td>
+                    <td><strong>${formatAmount(totalUSD, 'USD')}</strong></td>
+                    <td colspan="5"></td>
+                </tr>
+                ${currentFilter === 'all' ? `
+                <tr class="totals-row">
+                    <td colspan="2">Materials</td>
+                    <td>${formatAmount(materialsCost)}</td>
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="totals-row">
+                    <td colspan="2">Shipping</td>
+                    <td>${formatAmount(shippingCost)}</td>
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="totals-row">
+                    <td colspan="2">Labor</td>
+                    <td>${formatAmount(laborCost)}</td>
+                    <td colspan="6"></td>
+                </tr>
+                ` : ''}
+            `;
         }
         
         function filterCategory(category) {
@@ -753,7 +715,7 @@
                 item.className = 'gallery-item';
                 item.onclick = () => openLightbox(img.src);
                 item.innerHTML = `
-                    <img src="${img.src}" alt="${img.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22%3E%3Crect fill=%22%23eee%22 width=%22300%22 height=%22400%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+                    <img src="${img.src}" alt="${img.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22300%22 height=%22400%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
                     <div class="gallery-item-info">
                         <div class="gallery-item-title">${img.title}</div>
                         <div class="gallery-item-date">${img.date}</div>
@@ -822,7 +784,6 @@
             
             saveToLocalStorage();
             renderTable();
-            updateSummary();
             closeModal();
             showSuccess('Expense saved successfully!');
         }
@@ -832,7 +793,6 @@
                 expenses.splice(index, 1);
                 saveToLocalStorage();
                 renderTable();
-                updateSummary();
                 showSuccess('Expense deleted successfully!');
             }
         }
@@ -861,7 +821,6 @@
                         expenses = imported;
                         saveToLocalStorage();
                         renderTable();
-                        updateSummary();
                         showSuccess('Data imported successfully!');
                     } else {
                         alert('Invalid file format');
@@ -882,7 +841,6 @@
             }, 3000);
         }
         
-        // Load data on page load
         loadData();
     </script>
 </body>
