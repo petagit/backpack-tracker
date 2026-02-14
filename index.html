@@ -609,6 +609,8 @@
             let materialsCost = 0;
             let shippingCost = 0;
             let laborCost = 0;
+            let expensesRMB = 0;
+            let paymentsRMB = 0;
             
             filteredExpenses.forEach((exp, index) => {
                 if (!exp.Item && !exp['Amount(RMB)'] && !exp['Amount(USD)']) return;
@@ -625,6 +627,12 @@
                 const usdAmount = parseAmount(exp['Amount(USD)']);
                 totalRMB += rmbAmount;
                 totalUSD += usdAmount;
+                
+                if (rmbAmount < 0) {
+                    paymentsRMB += Math.abs(rmbAmount);
+                } else {
+                    expensesRMB += rmbAmount;
+                }
                 
                 if (exp.Category === 'Materials') materialsCost += rmbAmount;
                 if (exp.Category === 'Shipping') shippingCost += rmbAmount;
@@ -656,14 +664,25 @@
             });
             
             // Add totals row
+            const balance = expensesRMB - paymentsRMB;
             tfoot.innerHTML = `
-                <tr class="totals-row">
-                    <td colspan="2"><strong>TOTAL</strong></td>
-                    <td><strong>${formatAmount(totalRMB)}</strong></td>
-                    <td><strong>${formatAmount(totalUSD, 'USD')}</strong></td>
-                    <td colspan="5"></td>
-                </tr>
                 ${currentFilter === 'all' ? `
+                <tr class="totals-row">
+                    <td colspan="2">Total Expenses</td>
+                    <td>${formatAmount(expensesRMB)}</td>
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="totals-row">
+                    <td colspan="2">Payments Received</td>
+                    <td>${formatAmount(-paymentsRMB)}</td>
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="totals-row">
+                    <td colspan="2"><strong>BALANCE</strong></td>
+                    <td><strong>${formatAmount(balance)}</strong></td>
+                    <td colspan="6"></td>
+                </tr>
+                <tr style="height: 10px;"><td colspan="9"></td></tr>
                 <tr class="totals-row">
                     <td colspan="2">Materials</td>
                     <td>${formatAmount(materialsCost)}</td>
@@ -679,7 +698,14 @@
                     <td>${formatAmount(laborCost)}</td>
                     <td colspan="6"></td>
                 </tr>
-                ` : ''}
+                ` : `
+                <tr class="totals-row">
+                    <td colspan="2"><strong>TOTAL</strong></td>
+                    <td><strong>${formatAmount(totalRMB)}</strong></td>
+                    <td><strong>${formatAmount(totalUSD, 'USD')}</strong></td>
+                    <td colspan="5"></td>
+                </tr>
+                `}
             `;
         }
         
