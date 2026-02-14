@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
             border-radius: 12px;
@@ -37,6 +37,34 @@
         h1 {
             font-size: 2em;
             margin-bottom: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .tab {
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            font-size: 1em;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .tab.active {
+            background: white;
+            color: #2d3748;
+            font-weight: 600;
         }
         
         .summary {
@@ -62,6 +90,14 @@
             font-weight: bold;
         }
         
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
         .controls {
             padding: 20px 30px;
             background: #f7fafc;
@@ -69,6 +105,19 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-size: 0.9em;
+            color: #4a5568;
+            font-weight: 500;
         }
         
         .btn {
@@ -97,6 +146,22 @@
         
         .btn-success:hover {
             background: #38a169;
+        }
+        
+        .btn-filter {
+            padding: 8px 16px;
+            background: #e2e8f0;
+            color: #2d3748;
+            font-size: 0.85em;
+        }
+        
+        .btn-filter:hover {
+            background: #cbd5e0;
+        }
+        
+        .btn-filter.active {
+            background: #667eea;
+            color: white;
         }
         
         .table-container {
@@ -138,11 +203,15 @@
             background: #e6ffed;
         }
         
-        tr.editing {
+        tr.shipping {
             background: #fffaf0;
         }
         
-        input, textarea {
+        tr.shipping:hover {
+            background: #fef5e7;
+        }
+        
+        input, textarea, select {
             width: 100%;
             padding: 6px;
             border: 1px solid #cbd5e0;
@@ -203,22 +272,6 @@
             background: #e53e3e;
         }
         
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #718096;
-            font-size: 1.1em;
-        }
-        
-        .error {
-            background: #fed7d7;
-            color: #c53030;
-            padding: 15px;
-            margin: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
         .success {
             background: #c6f6d5;
             color: #22543d;
@@ -238,6 +291,29 @@
             font-weight: 500;
         }
         
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        
+        .category-materials {
+            background: #e6ffed;
+            color: #22543d;
+        }
+        
+        .category-shipping {
+            background: #fef5e7;
+            color: #744210;
+        }
+        
+        .category-labor {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        
         .modal {
             display: none;
             position: fixed;
@@ -255,6 +331,8 @@
             margin: 100px auto;
             padding: 30px;
             border-radius: 12px;
+            max-height: 80vh;
+            overflow-y: auto;
         }
         
         .modal-content h2 {
@@ -270,55 +348,151 @@
             margin-bottom: 5px;
             font-weight: 500;
         }
+        
+        /* Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .gallery-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .gallery-item-info {
+            padding: 15px;
+            background: #f7fafc;
+        }
+        
+        .gallery-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .gallery-item-date {
+            font-size: 0.85em;
+            color: #718096;
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 2001;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>🎒 Backpack Project Expense Tracker</h1>
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('expenses')">Expenses</button>
+                <button class="tab" onclick="switchTab('gallery')">Gallery</button>
+            </div>
             <div class="summary" id="summary">
                 <div class="summary-item">
                     <div class="summary-label">Total Expenses (RMB)</div>
                     <div class="summary-value" id="totalRMB">¥0</div>
                 </div>
                 <div class="summary-item">
-                    <div class="summary-label">Total Expenses (USD)</div>
-                    <div class="summary-value" id="totalUSD">$0</div>
+                    <div class="summary-label">Materials</div>
+                    <div class="summary-value" id="materialsCost">¥0</div>
                 </div>
                 <div class="summary-item">
-                    <div class="summary-label">Net Balance</div>
-                    <div class="summary-value" id="netBalance">¥0</div>
+                    <div class="summary-label">Shipping</div>
+                    <div class="summary-value" id="shippingCost">¥0</div>
                 </div>
             </div>
         </header>
         
-        <div class="controls">
-            <button class="btn btn-primary" onclick="showAddModal()">+ Add Expense</button>
-            <button class="btn btn-success" onclick="exportData()">📥 Export Data</button>
-            <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
-            <button class="btn btn-primary" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+        <!-- Expenses Tab -->
+        <div id="expenses-tab" class="tab-content active">
+            <div class="controls">
+                <button class="btn btn-primary" onclick="showAddModal()">+ Add Expense</button>
+                <button class="btn btn-success" onclick="exportData()">📥 Export Data</button>
+                <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
+                <button class="btn btn-primary" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+                
+                <div class="filter-group" style="margin-left: auto;">
+                    <span class="filter-label">Filter:</span>
+                    <button class="btn btn-filter active" data-filter="all" onclick="filterCategory('all')">All</button>
+                    <button class="btn btn-filter" data-filter="Materials" onclick="filterCategory('Materials')">Materials</button>
+                    <button class="btn btn-filter" data-filter="Shipping" onclick="filterCategory('Shipping')">Shipping</button>
+                    <button class="btn btn-filter" data-filter="Labor" onclick="filterCategory('Labor')">Labor</button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <div id="successMsg" class="success" style="display:none;"></div>
+                <table id="expenseTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Category</th>
+                            <th>Amount (RMB)</th>
+                            <th>Amount (USD)</th>
+                            <th>Date</th>
+                            <th>Notes</th>
+                            <th>Payment Method</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseBody">
+                    </tbody>
+                </table>
+            </div>
         </div>
         
-        <div class="table-container">
-            <div id="successMsg" class="success" style="display:none;"></div>
-            <div id="errorMsg" class="error" style="display:none;"></div>
-            <table id="expenseTable">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Amount (RMB)</th>
-                        <th>Amount (USD)</th>
-                        <th>Date</th>
-                        <th>Notes</th>
-                        <th>Payment Method</th>
-                        <th>Receipt</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="expenseBody">
-                </tbody>
-            </table>
+        <!-- Gallery Tab -->
+        <div id="gallery-tab" class="tab-content">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be inserted here -->
+            </div>
         </div>
     </div>
     
@@ -332,8 +506,17 @@
                     <input type="text" id="itemInput" required>
                 </div>
                 <div class="form-group">
+                    <label>Category</label>
+                    <select id="categoryInput">
+                        <option value="">None</option>
+                        <option value="Materials">Materials</option>
+                        <option value="Shipping">Shipping</option>
+                        <option value="Labor">Labor</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Amount (RMB)</label>
-                    <input type="text" id="rmbInput" placeholder="e.g., $43.00 or 43">
+                    <input type="text" id="rmbInput" placeholder="e.g., ¥43.00 or 43">
                 </div>
                 <div class="form-group">
                     <label>Amount (USD)</label>
@@ -352,10 +535,6 @@
                     <input type="text" id="paymentInput" placeholder="e.g., WeChat, Bank Transfer">
                 </div>
                 <div class="form-group">
-                    <label>Receipt URL</label>
-                    <input type="text" id="receiptInput" placeholder="https://...">
-                </div>
-                <div class="form-group">
                     <label>Status</label>
                     <input type="text" id="statusInput" placeholder="e.g., 交易成功">
                 </div>
@@ -366,61 +545,77 @@
             </form>
         </div>
     </div>
+    
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightboxImg" src="" alt="">
+    </div>
 
     <script>
         let expenses = [];
         let editingIndex = null;
+        let currentFilter = 'all';
         
-        // Initial data from CSV
+        // Gallery images
+        const galleryImages = [
+            { src: 'gallery/shipping-01.jpg', title: 'Shipping Records 1', date: 'January 2026' },
+            { src: 'gallery/shipping-02.jpg', title: 'Shipping Records 2', date: 'January 2026' },
+            { src: 'gallery/shipping-03.jpg', title: 'Shipping Records 3', date: 'January-February 2026' },
+            { src: 'gallery/shipping-04.jpg', title: 'Shipping Records 4', date: 'January 2026' },
+            { src: 'gallery/shipping-05.jpg', title: 'Shipping Records 5', date: 'January-February 2026' }
+        ];
+        
+        // Initial data
         const initialData = [
-            {"Item":"牛津布","Amount(RMB)":"$43.00","Amount(USD)":"","Date":"December 24, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"mockup版费","Amount(RMB)":"$1,200.00","Amount(USD)":"","Date":"December 27, 2025","Notes":"","Payment Method":"Wechat","Receipt":"","Status":"空"},
-            {"Item":"BARHAR扁带","Amount(RMB)":"$30.00","Amount(USD)":"","Date":"December 29, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"快尚坊","Amount(RMB)":"$47.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"DIY面料","Amount(RMB)":"$23.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"优佩选","Amount(RMB)":"$74.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"五金插扣","Amount(RMB)":"$177.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"顺记五金","Amount(RMB)":"$58.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"织带","Amount(RMB)":"$24.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"降落伞面料","Amount(RMB)":"$40.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"网眼布","Amount(RMB)":"$34.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"小孔布","Amount(RMB)":"$10.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"ryder paid peta","Amount(RMB)":"-$1,000.00","Amount(USD)":"","Date":"January 16, 2026","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"mockup 车缝费用","Amount(RMB)":"$500.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"大力马loop","Amount(RMB)":"$19.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"钩子","Amount(RMB)":"$34.00","Amount(USD)":"","Date":"January 7, 2026","Notes":"","Payment Method":"","Receipt":"Ryder%20backpack%20R&D%20cost%20tracker/Screenshot_2026-01-16_at_18.08.02.png","Status":""},
-            {"Item":"钩子2","Amount(RMB)":"$7.00","Amount(USD)":"","Date":"January 7, 2026","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"钩子 3","Amount(RMB)":"$22.00","Amount(USD)":"","Date":"January 7, 2026","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"304不锈钢开口目字扣 (内径26)","Amount(RMB)":"$3.50","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"多耐福DURAFLEX金属扣具 (25mm)","Amount(RMB)":"$12.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"NIFCO利富高 CLTMA弹力绳扣","Amount(RMB)":"$3.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"多耐福DURAFLEX扣具 ALULA (20-15mm)","Amount(RMB)":"","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"走天涯大力马扁带迪N玛扁带环登","Amount(RMB)":"$19.40","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"WOOJIN扣具WJ扣件Sub Toggle (x8)","Amount(RMB)":"$15.20","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"多耐福DURAFLEX扣件 Simplx简约 (x4)","Amount(RMB)":"$12.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"多耐福DURAFLEX 弹簧扣 GC DCL-4 (x8)","Amount(RMB)":"$24.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"多耐福DURAFLEX简约铝合金三档 (x8)","Amount(RMB)":"$80.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"多耐福DURAFLEX UTX 莫哈比 (x4)","Amount(RMB)":"$12.20","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"进口woojin挎包用小挂钩 塑料环 (8mm) (x4)","Amount(RMB)":"$3.48","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"进口woojin挎包用小挂钩 (黑色 8mm) (x4)","Amount(RMB)":"$7.68","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"UTX多耐福新款弹力绳伞绳双孔绳","Amount(RMB)":"$6.96","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"箱包研发 (Bags & Luggage)","Amount(RMB)":"","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"Ryder paid peta ","Amount(RMB)":"-$2,800.00","Amount(USD)":"-$400.00","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"converted to 2800 rmb"},
-            {"Item":"xpac 面料","Amount(RMB)":"$1,500.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"大力馬面料","Amount(RMB)":"$312.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"kevlar 面料","Amount(RMB)":"$100.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":""},
-            {"Item":"Ryder paid peta","Amount(RMB)":"-$2,760.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"Bank Transfer","Receipt":"","Status":"400usd"},
-            {"Item":"1/1.5/5cm 加厚加密箱包密纹带高","Amount(RMB)":"¥23.75","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥4.75 × 5 pieces, 1cm wide × 2m length","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"户外防潮坐垫折叠凳子便携XPE泡","Amount(RMB)":"¥9.80","Amount(USD)":"","Date":"February 13, 2026","Notes":"Outdoor folding mat, blue","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"橙红色反光橡筋绳 3米","Amount(RMB)":"¥55.95","Amount(USD)":"","Date":"February 13, 2026","Notes":"Orange-red reflective elastic cord, 3m × 6 pieces","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"WOOJIN扣具WJ扣件Sub Toggle (x15)","Amount(RMB)":"¥35.50","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥1.9 × 15, black WJ buckle, additional order","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"大力马风绳 反光风绳2mm dyneema","Amount(RMB)":"¥32.60","Amount(USD)":"","Date":"February 13, 2026","Notes":"Black Φ2.0mm, 6m length, includes ¥8 shipping","Payment Method":"","Receipt":"","Status":"已签收"},
-            {"Item":"NIFCO利富高 CLTMA弹力绳扣 (x3)","Amount(RMB)":"¥46.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"Includes DURAFLEX ALULA x3 (¥9) in same order","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"补差价专用 (永辉辅料)","Amount(RMB)":"¥20.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥0.01 × 2000, price difference payment","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"补差价专用 (UL FLY)","Amount(RMB)":"¥16.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥0.01 × 1600, price difference payment","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"补差价专用 (熊手户外)","Amount(RMB)":"¥15.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥0.01 × 1500, price difference payment","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"热缩管组合套装黑色彩色数据线绳","Amount(RMB)":"¥9.80","Amount(USD)":"","Date":"February 13, 2026","Notes":"Heat shrink tubing set, 164 pieces, for cord management","Payment Method":"","Receipt":"","Status":"交易成功"},
-            {"Item":"Sample labor (3 bags material not included)","Amount(RMB)":"¥2,700.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"Labor cost for 3 sample bags, materials separate","Payment Method":"","Receipt":"","Status":""},
+            {"Item":"牛津布","Amount(RMB)":"$43.00","Amount(USD)":"","Date":"December 24, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"mockup版费","Amount(RMB)":"$1,200.00","Amount(USD)":"","Date":"December 27, 2025","Notes":"","Payment Method":"Wechat","Receipt":"","Status":"空","Category":"Labor"},
+            {"Item":"BARHAR扁带","Amount(RMB)":"$30.00","Amount(USD)":"","Date":"December 29, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"快尚坊","Amount(RMB)":"$47.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"DIY面料","Amount(RMB)":"$23.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"优佩选","Amount(RMB)":"$74.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"五金插扣","Amount(RMB)":"$177.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"顺记五金","Amount(RMB)":"$58.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"织带","Amount(RMB)":"$24.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"降落伞面料","Amount(RMB)":"$40.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"网眼布","Amount(RMB)":"$34.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"小孔布","Amount(RMB)":"$10.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"ryder paid peta","Amount(RMB)":"-$1,000.00","Amount(USD)":"","Date":"January 16, 2026","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":""},
+            {"Item":"mockup 车缝费用","Amount(RMB)":"$500.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Labor"},
+            {"Item":"大力马loop","Amount(RMB)":"$19.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"钩子","Amount(RMB)":"$34.00","Amount(USD)":"","Date":"January 7, 2026","Notes":"","Payment Method":"","Receipt":"Ryder%20backpack%20R&D%20cost%20tracker/Screenshot_2026-01-16_at_18.08.02.png","Status":"","Category":"Materials"},
+            {"Item":"钩子2","Amount(RMB)":"$7.00","Amount(USD)":"","Date":"January 7, 2026","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"钩子 3","Amount(RMB)":"$22.00","Amount(USD)":"","Date":"January 7, 2026","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"304不锈钢开口目字扣 (内径26)","Amount(RMB)":"$3.50","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"多耐福DURAFLEX金属扣具 (25mm)","Amount(RMB)":"$12.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"NIFCO利富高 CLTMA弹力绳扣","Amount(RMB)":"$3.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"多耐福DURAFLEX扣具 ALULA (20-15mm)","Amount(RMB)":"","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"走天涯大力马扁带迪N玛扁带环登","Amount(RMB)":"$19.40","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"WOOJIN扣具WJ扣件Sub Toggle (x8)","Amount(RMB)":"$15.20","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"多耐福DURAFLEX扣件 Simplx简约 (x4)","Amount(RMB)":"$12.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"多耐福DURAFLEX 弹簧扣 GC DCL-4 (x8)","Amount(RMB)":"$24.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"多耐福DURAFLEX简约铝合金三档 (x8)","Amount(RMB)":"$80.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"多耐福DURAFLEX UTX 莫哈比 (x4)","Amount(RMB)":"$12.20","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"进口woojin挎包用小挂钩 塑料环 (8mm) (x4)","Amount(RMB)":"$3.48","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"进口woojin挎包用小挂钩 (黑色 8mm) (x4)","Amount(RMB)":"$7.68","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"UTX多耐福新款弹力绳伞绳双孔绳","Amount(RMB)":"$6.96","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"箱包研发 (Bags & Luggage)","Amount(RMB)":"","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":""},
+            {"Item":"Ryder paid peta ","Amount(RMB)":"-$2,800.00","Amount(USD)":"-$400.00","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"converted to 2800 rmb","Category":""},
+            {"Item":"xpac 面料","Amount(RMB)":"$1,500.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"大力馬面料","Amount(RMB)":"$312.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"kevlar 面料","Amount(RMB)":"$100.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
+            {"Item":"Ryder paid peta","Amount(RMB)":"-$2,760.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"Bank Transfer","Receipt":"","Status":"400usd","Category":""},
+            {"Item":"1/1.5/5cm 加厚加密箱包密纹带高","Amount(RMB)":"¥23.75","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥4.75 × 5 pieces, 1cm wide × 2m length","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"户外防潮坐垫折叠凳子便携XPE泡","Amount(RMB)":"¥9.80","Amount(USD)":"","Date":"February 13, 2026","Notes":"Outdoor folding mat, blue","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"橙红色反光橡筋绳 3米","Amount(RMB)":"¥55.95","Amount(USD)":"","Date":"February 13, 2026","Notes":"Orange-red reflective elastic cord, 3m × 6 pieces","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"WOOJIN扣具WJ扣件Sub Toggle (x15)","Amount(RMB)":"¥35.50","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥1.9 × 15, black WJ buckle, additional order","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"大力马风绳 反光风绳2mm dyneema","Amount(RMB)":"¥32.60","Amount(USD)":"","Date":"February 13, 2026","Notes":"Black Φ2.0mm, 6m length, includes ¥8 shipping","Payment Method":"","Receipt":"","Status":"已签收","Category":"Materials"},
+            {"Item":"NIFCO利富高 CLTMA弹力绳扣 (x3)","Amount(RMB)":"¥46.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"Includes DURAFLEX ALULA x3 (¥9) in same order","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"补差价专用 (永辉辅料)","Amount(RMB)":"¥20.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥0.01 × 2000, price difference payment","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"补差价专用 (UL FLY)","Amount(RMB)":"¥16.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥0.01 × 1600, price difference payment","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"补差价专用 (熊手户外)","Amount(RMB)":"¥15.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥0.01 × 1500, price difference payment","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"热缩管组合套装黑色彩色数据线绳","Amount(RMB)":"¥9.80","Amount(USD)":"","Date":"February 13, 2026","Notes":"Heat shrink tubing set, 164 pieces, for cord management","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
+            {"Item":"Sample labor (3 bags material not included)","Amount(RMB)":"¥2,700.00","Amount(USD)":"","Date":"February 13, 2026","Notes":"Labor cost for 3 sample bags, materials separate","Payment Method":"","Receipt":"","Status":"","Category":"Labor"},
             {"Item":"Shipping: Shanghai → Qingdao","Amount(RMB)":"¥94.00","Amount(USD)":"","Date":"January 22, 2026","Notes":"SF0250191695673 - Office delivery","Payment Method":"SF Express","Receipt":"","Status":"已签收","Category":"Shipping"},
             {"Item":"Shipping: Shanghai → Qingdao","Amount(RMB)":"¥22.00","Amount(USD)":"","Date":"January 29, 2026","Notes":"SF0251525014631 - Office delivery","Payment Method":"SF Express","Receipt":"","Status":"已签收","Category":"Shipping"},
             {"Item":"Shipping: Shanghai → Qingdao","Amount(RMB)":"¥80.00","Amount(USD)":"","Date":"January 2026","Notes":"SF0251614773604 - 2 packages delivered","Payment Method":"SF Express","Receipt":"","Status":"已签收 (2件)","Category":"Shipping"},
@@ -456,65 +651,125 @@
             return amount < 0 ? `${symbol}-${formatted}` : `${symbol}${formatted}`;
         }
         
+        function getCategoryClass(category) {
+            if (!category) return '';
+            return 'category-' + category.toLowerCase();
+        }
+        
         function updateSummary() {
             let totalRMB = 0;
-            let totalUSD = 0;
+            let materialsCost = 0;
+            let shippingCost = 0;
             
             expenses.forEach(exp => {
                 const rmb = parseAmount(exp['Amount(RMB)']);
-                const usd = parseAmount(exp['Amount(USD)']);
                 totalRMB += rmb;
-                totalUSD += usd;
+                
+                if (exp.Category === 'Materials') materialsCost += rmb;
+                if (exp.Category === 'Shipping') shippingCost += rmb;
             });
             
             document.getElementById('totalRMB').textContent = formatAmount(totalRMB, 'RMB');
-            document.getElementById('totalUSD').textContent = formatAmount(totalUSD, 'USD');
-            document.getElementById('netBalance').textContent = formatAmount(totalRMB, 'RMB');
-            
-            const netBalanceEl = document.getElementById('netBalance');
-            if (totalRMB < 0) {
-                netBalanceEl.style.color = '#38a169';
-            } else {
-                netBalanceEl.style.color = '#c53030';
-            }
+            document.getElementById('materialsCost').textContent = formatAmount(materialsCost, 'RMB');
+            document.getElementById('shippingCost').textContent = formatAmount(shippingCost, 'RMB');
         }
         
         function renderTable() {
             const tbody = document.getElementById('expenseBody');
             tbody.innerHTML = '';
             
-            expenses.forEach((exp, index) => {
-                if (!exp.Item && !exp['Amount(RMB)'] && !exp['Amount(USD)']) return; // Skip empty rows
+            const filteredExpenses = currentFilter === 'all' 
+                ? expenses 
+                : expenses.filter(exp => exp.Category === currentFilter);
+            
+            filteredExpenses.forEach((exp, index) => {
+                if (!exp.Item && !exp['Amount(RMB)'] && !exp['Amount(USD)']) return;
                 
+                const actualIndex = expenses.indexOf(exp);
                 const row = document.createElement('tr');
                 const isPayment = exp.Item && exp.Item.toLowerCase().includes('paid');
+                const isShipping = exp.Category === 'Shipping';
                 
-                if (isPayment) {
-                    row.classList.add('payment');
-                }
+                if (isPayment) row.classList.add('payment');
+                if (isShipping) row.classList.add('shipping');
                 
                 const rmbAmount = parseAmount(exp['Amount(RMB)']);
                 const usdAmount = parseAmount(exp['Amount(USD)']);
                 const rmbClass = rmbAmount < 0 ? 'amount-negative' : 'amount-positive';
                 const usdClass = usdAmount < 0 ? 'amount-negative' : 'amount-positive';
                 
+                const categoryBadge = exp.Category 
+                    ? `<span class="category-badge ${getCategoryClass(exp.Category)}">${exp.Category}</span>`
+                    : '';
+                
                 row.innerHTML = `
                     <td>${exp.Item || ''}</td>
+                    <td>${categoryBadge}</td>
                     <td class="${rmbClass}">${exp['Amount(RMB)'] || ''}</td>
                     <td class="${usdClass}">${exp['Amount(USD)'] || ''}</td>
                     <td>${exp.Date || ''}</td>
                     <td>${exp.Notes || ''}</td>
                     <td>${exp['Payment Method'] || ''}</td>
-                    <td>${exp.Receipt ? `<a href="${exp.Receipt}" target="_blank">View</a>` : ''}</td>
                     <td>${exp.Status || ''}</td>
                     <td>
-                        <button class="edit-btn" onclick="editExpense(${index})">Edit</button>
-                        <button class="delete-btn" onclick="deleteExpense(${index})">Delete</button>
+                        <button class="edit-btn" onclick="editExpense(${actualIndex})">Edit</button>
+                        <button class="delete-btn" onclick="deleteExpense(${actualIndex})">Delete</button>
                     </td>
                 `;
                 
                 tbody.appendChild(row);
             });
+        }
+        
+        function filterCategory(category) {
+            currentFilter = category;
+            document.querySelectorAll('.btn-filter').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('active');
+                }
+            });
+            renderTable();
+        }
+        
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            if (tabName === 'gallery') {
+                renderGallery();
+            }
+        }
+        
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            
+            galleryImages.forEach((img, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.onclick = () => openLightbox(img.src);
+                item.innerHTML = `
+                    <img src="${img.src}" alt="${img.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22%3E%3Crect fill=%22%23eee%22 width=%22300%22 height=%22400%22/%3E%3Ctext fill=%22%23999%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage not found%3C/text%3E%3C/svg%3E'">
+                    <div class="gallery-item-info">
+                        <div class="gallery-item-title">${img.title}</div>
+                        <div class="gallery-item-date">${img.date}</div>
+                    </div>
+                `;
+                grid.appendChild(item);
+            });
+        }
+        
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
         }
         
         function showAddModal() {
@@ -529,12 +784,12 @@
             const exp = expenses[index];
             document.getElementById('modalTitle').textContent = 'Edit Expense';
             document.getElementById('itemInput').value = exp.Item || '';
+            document.getElementById('categoryInput').value = exp.Category || '';
             document.getElementById('rmbInput').value = exp['Amount(RMB)'] || '';
             document.getElementById('usdInput').value = exp['Amount(USD)'] || '';
             document.getElementById('dateInput').value = exp.Date || '';
             document.getElementById('notesInput').value = exp.Notes || '';
             document.getElementById('paymentInput').value = exp['Payment Method'] || '';
-            document.getElementById('receiptInput').value = exp.Receipt || '';
             document.getElementById('statusInput').value = exp.Status || '';
             document.getElementById('expenseModal').style.display = 'block';
         }
@@ -549,12 +804,13 @@
             
             const expense = {
                 Item: document.getElementById('itemInput').value,
+                Category: document.getElementById('categoryInput').value,
                 'Amount(RMB)': document.getElementById('rmbInput').value,
                 'Amount(USD)': document.getElementById('usdInput').value,
                 Date: document.getElementById('dateInput').value,
                 Notes: document.getElementById('notesInput').value,
                 'Payment Method': document.getElementById('paymentInput').value,
-                Receipt: document.getElementById('receiptInput').value,
+                Receipt: '',
                 Status: document.getElementById('statusInput').value
             };
             
@@ -608,10 +864,10 @@
                         updateSummary();
                         showSuccess('Data imported successfully!');
                     } else {
-                        showError('Invalid file format');
+                        alert('Invalid file format');
                     }
                 } catch (error) {
-                    showError('Error importing file: ' + error.message);
+                    alert('Error importing file: ' + error.message);
                 }
             };
             reader.readAsText(file);
@@ -624,15 +880,6 @@
             setTimeout(() => {
                 el.style.display = 'none';
             }, 3000);
-        }
-        
-        function showError(message) {
-            const el = document.getElementById('errorMsg');
-            el.textContent = message;
-            el.style.display = 'block';
-            setTimeout(() => {
-                el.style.display = 'none';
-            }, 5000);
         }
         
         // Load data on page load
