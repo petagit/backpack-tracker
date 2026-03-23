@@ -525,7 +525,7 @@
             {"Item":"降落伞面料","Amount(RMB)":"$40.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
             {"Item":"网眼布","Amount(RMB)":"$34.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
             {"Item":"小孔布","Amount(RMB)":"$10.00","Amount(USD)":"","Date":"December 12, 2025","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
-            {"Item":"ryder paid peta","Amount(RMB)":"-$1,000.00","Amount(USD)":"","Date":"January 16, 2026","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":""},
+            {"Item":"ryder paid peta","Amount(RMB)":"-$1,000.00","Amount(USD)":"","Date":"December 3, 2025","Notes":"inside the 565","Payment Method":"","Receipt":"","Status":"","Category":""},
             {"Item":"mockup 车缝费用","Amount(RMB)":"$500.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Labor"},
             {"Item":"大力马loop","Amount(RMB)":"$19.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
             {"Item":"钩子","Amount(RMB)":"$34.00","Amount(USD)":"","Date":"January 7, 2026","Notes":"","Payment Method":"","Receipt":"Ryder%20backpack%20R&D%20cost%20tracker/Screenshot_2026-01-16_at_18.08.02.png","Status":"","Category":"Materials"},
@@ -545,11 +545,12 @@
             {"Item":"进口woojin挎包用小挂钩 (黑色 8mm) (x4)","Amount(RMB)":"$7.68","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
             {"Item":"UTX多耐福新款弹力绳伞绳双孔绳","Amount(RMB)":"$6.96","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
             {"Item":"箱包研发 (Bags & Luggage)","Amount(RMB)":"","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":""},
-            {"Item":"Ryder paid peta ","Amount(RMB)":"-$2,800.00","Amount(USD)":"-$400.00","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"converted to 2800 rmb","Category":""},
+            {"Item":"Ryder paid peta ","Amount(RMB)":"-$2,800.00","Amount(USD)":"-$400.00","Date":"February 9, 2026","Notes":"","Payment Method":"","Receipt":"","Status":"converted to 2800 rmb","Category":""},
             {"Item":"xpac 面料","Amount(RMB)":"$1,500.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
             {"Item":"大力馬面料","Amount(RMB)":"$312.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
             {"Item":"kevlar 面料","Amount(RMB)":"$100.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"","Receipt":"","Status":"","Category":"Materials"},
-            {"Item":"Ryder paid peta","Amount(RMB)":"-$2,760.00","Amount(USD)":"","Date":"","Notes":"","Payment Method":"Bank Transfer","Receipt":"","Status":"400usd","Category":""},
+            {"Item":"Ryder paid peta","Amount(RMB)":"-$2,760.00","Amount(USD)":"","Date":"January 23, 2026","Notes":"","Payment Method":"Bank Transfer","Receipt":"","Status":"400usd","Category":""},
+            {"Item":"Ryder paid peta","Amount(RMB)":"-$2,009.00","Amount(USD)":"","Date":"January 20, 2026","Notes":"USD $287 transferred","Payment Method":"","Receipt":"","Status":"","Category":""},
             {"Item":"1/1.5/5cm 加厚加密箱包密纹带高","Amount(RMB)":"¥23.75","Amount(USD)":"","Date":"February 13, 2026","Notes":"¥4.75 × 5 pieces, 1cm wide × 2m length","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
             {"Item":"户外防潮坐垫折叠凳子便携XPE泡","Amount(RMB)":"¥9.80","Amount(USD)":"","Date":"February 13, 2026","Notes":"Outdoor folding mat, blue","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
             {"Item":"橙红色反光橡筋绳 3米","Amount(RMB)":"¥55.95","Amount(USD)":"","Date":"February 13, 2026","Notes":"Orange-red reflective elastic cord, 3m × 6 pieces","Payment Method":"","Receipt":"","Status":"交易成功","Category":"Materials"},
@@ -604,6 +605,7 @@
                 ? expenses 
                 : expenses.filter(exp => exp.Category === currentFilter);
             
+            const USD_TO_RMB = 7;
             let totalRMB = 0;
             let totalUSD = 0;
             let materialsCost = 0;
@@ -611,25 +613,27 @@
             let laborCost = 0;
             let expensesRMB = 0;
             let paymentsRMB = 0;
-            
+
             filteredExpenses.forEach((exp, index) => {
                 if (!exp.Item && !exp['Amount(RMB)'] && !exp['Amount(USD)']) return;
-                
+
                 const actualIndex = expenses.indexOf(exp);
                 const row = document.createElement('tr');
                 const isPayment = exp.Item && exp.Item.toLowerCase().includes('paid');
                 const isShipping = exp.Category === 'Shipping';
-                
+
                 if (isPayment) row.classList.add('payment');
                 if (isShipping) row.classList.add('shipping');
-                
+
                 const rmbAmount = parseAmount(exp['Amount(RMB)']);
                 const usdAmount = parseAmount(exp['Amount(USD)']);
                 totalRMB += rmbAmount;
                 totalUSD += usdAmount;
-                
+
                 if (rmbAmount < 0) {
                     paymentsRMB += Math.abs(rmbAmount);
+                } else if (rmbAmount === 0 && usdAmount < 0) {
+                    paymentsRMB += Math.abs(usdAmount) * USD_TO_RMB;
                 } else {
                     expensesRMB += rmbAmount;
                 }
