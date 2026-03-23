@@ -403,6 +403,8 @@
                 <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
                 <button class="btn" onclick="document.getElementById('importFile').click()">Import</button>
                 
+                <button class="btn" id="sortDateBtn" onclick="toggleSortByDate()">Sort by Date ↕</button>
+
                 <div class="filter-group">
                     <span class="filter-label">Filter:</span>
                     <button class="btn-filter active" data-filter="all" onclick="filterCategory('all')">All</button>
@@ -503,6 +505,7 @@
         let expenses = [];
         let editingIndex = null;
         let currentFilter = 'all';
+        let sortByDate = false;
         
         const galleryImages = [
             { src: 'gallery/shipping-01.jpg', title: 'Shipping Records 1', date: 'January 2026' },
@@ -610,14 +613,32 @@
             return amount < 0 ? `-${symbol}${formatted}` : `${symbol}${formatted}`;
         }
         
+        function toggleSortByDate() {
+            sortByDate = !sortByDate;
+            const btn = document.getElementById('sortDateBtn');
+            btn.textContent = sortByDate ? 'Sort by Date ↑ (on)' : 'Sort by Date ↕';
+            btn.style.fontWeight = sortByDate ? 'bold' : '';
+            renderTable();
+        }
+
+        function parseDate(str) {
+            if (!str) return 0;
+            const d = new Date(str);
+            return isNaN(d) ? 0 : d.getTime();
+        }
+
         function renderTable() {
             const tbody = document.getElementById('expenseBody');
             const tfoot = document.getElementById('totalsFooter');
             tbody.innerHTML = '';
-            
-            const filteredExpenses = currentFilter === 'all' 
-                ? expenses 
-                : expenses.filter(exp => exp.Category === currentFilter);
+
+            let expenseList = sortByDate
+                ? [...expenses].sort((a, b) => parseDate(a.Date) - parseDate(b.Date))
+                : expenses;
+
+            const filteredExpenses = currentFilter === 'all'
+                ? expenseList
+                : expenseList.filter(exp => exp.Category === currentFilter);
             
             const USD_TO_RMB = 7;
             let totalRMB = 0;
