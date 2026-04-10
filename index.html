@@ -7,6 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Backpack Project Expense Tracker</title>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -402,7 +403,8 @@
         <div id="expenses-tab" class="tab-content active">
             <div class="controls">
                 <button class="btn" onclick="showAddModal()">+ Add Expense</button>
-                <button class="btn" onclick="exportData()">Export</button>
+                <button class="btn" onclick="exportData()">Export JSON</button>
+                <button class="btn" onclick="exportXlsx()">Export XLSX</button>
                 <input type="file" id="importFile" style="display:none;" accept=".json" onchange="importData(event)">
                 <button class="btn" onclick="document.getElementById('importFile').click()">Import</button>
                 
@@ -688,20 +690,19 @@
 
                 const rmbAmount = parseAmount(exp['Amount(RMB)']);
                 const usdAmount = parseAmount(exp['Amount(USD)']);
+                const rmbEquiv = rmbAmount !== 0 ? rmbAmount : usdAmount * USD_TO_RMB;
                 totalRMB += rmbAmount;
                 totalUSD += usdAmount;
 
-                if (rmbAmount < 0) {
-                    paymentsRMB += Math.abs(rmbAmount);
-                } else if (rmbAmount === 0 && usdAmount < 0) {
-                    paymentsRMB += Math.abs(usdAmount) * USD_TO_RMB;
+                if (rmbEquiv < 0) {
+                    paymentsRMB += Math.abs(rmbEquiv);
                 } else {
-                    expensesRMB += rmbAmount;
+                    expensesRMB += rmbEquiv;
                 }
                 
-                if (exp.Category === 'Materials') materialsCost += rmbAmount;
-                if (exp.Category === 'Shipping') shippingCost += rmbAmount;
-                if (exp.Category === 'Labor') laborCost += rmbAmount;
+                if (exp.Category === 'Materials') materialsCost += rmbEquiv;
+                if (exp.Category === 'Shipping') shippingCost += rmbEquiv;
+                if (exp.Category === 'Labor') laborCost += rmbEquiv;
                 
                 const rmbClass = rmbAmount < 0 ? 'amount-negative' : 'amount-positive';
                 const usdClass = usdAmount < 0 ? 'amount-negative' : 'amount-positive';
@@ -898,6 +899,42 @@
             link.click();
             URL.revokeObjectURL(url);
             showSuccess('Data exported successfully!');
+        }
+
+        function exportXlsx() {
+            const USD_TO_RMB = 7;
+            const rows = expenses
+                .filter(exp => exp.Item || exp['Amount(RMB)'] || exp['Amount(USD)'])
+                .map(exp => {
+                    const rmb = parseAmount(exp['Amount(RMB)']);
+                    const usd = parseAmount(exp['Amount(USD)']);
+                    const rmbEquiv = rmb + usd * USD_TO_RMB;
+                    return {
+                        'Item': exp.Item || '',
+                        'Date': exp.Date || '',
+                        'Category': exp.Category || '',
+                        'Amount (RMB)': rmb || '',
+                        'Amount (USD)': usd || '',
+                        'RMB Equivalent': Math.round(rmbEquiv * 100) / 100 || '',
+                        'Notes': exp.Notes || '',
+                        'Payment Method': exp['Payment Method'] || '',
+                        'Status': exp.Status || ''
+                    };
+                });
+
+            const ws = XLSX.utils.json_to_sheet(rows);
+
+            const colWidths = [
+                { wch: 40 }, { wch: 18 }, { wch: 12 },
+                { wch: 14 }, { wch: 14 }, { wch: 16 },
+                { wch: 50 }, { wch: 16 }, { wch: 14 }
+            ];
+            ws['!cols'] = colWidths;
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Expenses');
+            XLSX.writeFile(wb, `backpack-expenses-${new Date().toISOString().split('T')[0]}.xlsx`);
+            showSuccess('XLSX exported successfully!');
         }
         
         function importData(event) {
