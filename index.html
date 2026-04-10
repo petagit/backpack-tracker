@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Backpack Project Expense Tracker</title>
     <style>
         * {
@@ -586,13 +589,21 @@
             {"Item":"50只背包定做 - 郝靖","Amount(RMB)":"¥1,285.00","Amount(USD)":"","Date":"April 9, 2026","Notes":"WeChat transfer to 郝靖17362237268, 50只背包定做群","Payment Method":"Wechat Transfer","Receipt":"","Status":"已被接收","Category":"Labor"}
         ];
         
-        const DATA_VERSION = 3;
+        function hashData(data) {
+            const str = JSON.stringify(data);
+            let h = 0;
+            for (let i = 0; i < str.length; i++) {
+                h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+            }
+            return String(h);
+        }
 
         function loadData() {
-            const savedVersion = localStorage.getItem('backpackExpensesVersion');
+            const currentHash = hashData(initialData);
+            const savedHash = localStorage.getItem('backpackExpensesHash');
             const saved = localStorage.getItem('backpackExpenses');
 
-            if (saved && savedVersion && parseInt(savedVersion) >= DATA_VERSION) {
+            if (saved && savedHash === currentHash) {
                 expenses = JSON.parse(saved);
             } else {
                 expenses = initialData;
@@ -603,7 +614,7 @@
         
         function saveToLocalStorage() {
             localStorage.setItem('backpackExpenses', JSON.stringify(expenses));
-            localStorage.setItem('backpackExpensesVersion', String(DATA_VERSION));
+            localStorage.setItem('backpackExpensesHash', hashData(initialData));
         }
         
         function parseAmount(str) {
